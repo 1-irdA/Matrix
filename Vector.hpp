@@ -18,7 +18,7 @@ public:
 
 	int& get_at(const int col);
 
-	void add_vector(const Vector to_add);
+	void add_vector(const Vector& to_add);
 
 	void multiply_vector(const int multiple);
 

@@ -22,13 +22,13 @@ public:
 
 	void add_value_at(const int row, const int col, const int to_add);
 
-	bool is_same_size(Matrix to_check);
+	bool is_same_size(const Matrix& to_check);
 
-	Matrix add_matrix(const Matrix& to_add);
+	Matrix& add_matrix(const Matrix& to_add);
 
-	Matrix multiply_matrix(const int multiple);
+	Matrix& multiply_matrix(const int multiple);
 
-	Vector get_at(const int row);
+	const Vector& get_vect_at(const int row) const;
 
 	std::string to_string();
 

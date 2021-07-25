@@ -20,7 +20,7 @@ void Vector::add_value_at(int col, int to_add) {
 	this->values[col] = to_add;
 }
 
-void Vector::add_vector(const Vector to_add) {
+void Vector::add_vector(const Vector& to_add) {
 	for (int i = 0; i < this->values.size(); i++) {
 		this->values[i] += to_add.values[i];
 	}

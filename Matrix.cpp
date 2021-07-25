@@ -1,5 +1,5 @@
 #include "Matrix.hpp"
-#include <ostream>
+#include <iostream>
 #include <stdexcept>
 #include <string>
 
@@ -20,6 +20,10 @@ const int Matrix::get_col() const {
 	return this->col;
 }
 
+const Vector& Matrix::get_vect_at(const int row) const {
+	return this->vectors[row];
+}
+
 void Matrix::add_value_at(const int row, const int col, const int to_add) {
 
 	if (row > this->row || col > this->col) {
@@ -32,24 +36,24 @@ void Matrix::add_value_at(const int row, const int col, const int to_add) {
 	this->vectors[row].add_value_at(col, to_add);
 }
 
-bool Matrix::is_same_size(Matrix to_check) {
+bool Matrix::is_same_size(const Matrix& to_check) {
 	return this->get_row() == this->get_col() && to_check.get_row() == to_check.get_row();
 }
 
-Matrix Matrix::add_matrix(const Matrix& to_add) {
+Matrix& Matrix::add_matrix(const Matrix& to_add) {
 
-	if (this->is_same_size(to_add)) {
+	if (!this->is_same_size(to_add)) {
 		throw std::exception("Error ! Cannot add 2 matrix with differents sizes");
 	}
 
 	for (int i = 0; i < this->vectors.size(); i++) {
-		this->vectors[i].add_vector(to_add.vectors[i]);
+		this->vectors[i].add_vector(to_add.get_vect_at(i));
 	}
 
 	return *this;
 }
 
-Matrix Matrix::multiply_matrix(const int multiple) {
+Matrix& Matrix::multiply_matrix(const int multiple) {
 	for (int i = 0; i < this->vectors.size(); i++) {
 		this->vectors[i].multiply_vector(multiple);
 	}
@@ -78,10 +82,6 @@ std::string Matrix::to_string() const {
 	return str;
 }
 
-Vector Matrix::get_at(const int row) {
-	return this->vectors[row];
-}
-
 Matrix operator+(Matrix& left, const Matrix& right) {
 	return left += right;
 }
@@ -91,13 +91,11 @@ Matrix operator*(Matrix& to_multiply, const int multiple) {
 }
 
 Matrix& Matrix::operator+=(const Matrix& to_add) {
-	this->add_matrix(to_add);
-	return *this;
+	return this->add_matrix(to_add);
 }
 
 Matrix& Matrix::operator*=(const int multiple) {
-	this->multiply_matrix(multiple);
-	return *this;
+	return this->multiply_matrix(multiple);
 }
 
 int& Matrix::operator()(const int row, const int col) {
