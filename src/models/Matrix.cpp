@@ -96,7 +96,7 @@ Matrix operator*(Matrix& to_multiply, const int multiple) {
 }
 
 Matrix& Matrix::operator+=(const Matrix& to_add) {
-	return this->add_matrix(to_add);
+	return this->add_matrix_on_this(to_add);
 }
 
 Matrix& Matrix::operator*=(const int multiple) {

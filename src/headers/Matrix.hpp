@@ -24,7 +24,7 @@ public:
 
 	bool is_same_size(const Matrix& to_check);
 
-	Matrix& add_matrix(const Matrix& to_add);
+	Matrix& add_matrix_on_this(const Matrix& to_add);
 
 	Matrix add_matrix(const Matrix& to_add);
 
