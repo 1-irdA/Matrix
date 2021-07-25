@@ -26,6 +26,8 @@ public:
 
 	Matrix& add_matrix(const Matrix& to_add);
 
+	Matrix add_matrix(const Matrix& to_add);
+
 	Matrix& multiply_matrix(const int multiple);
 
 	const Vector& get_vect_at(const int row) const;

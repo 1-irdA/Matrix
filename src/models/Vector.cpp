@@ -1,5 +1,4 @@
-#include "Vector.hpp"
-#include <iostream>
+#include "../headers/Vector.hpp"
 #include <stdexcept>
 #include <string>
 
@@ -14,20 +13,19 @@ int& Vector::get_at(const int col) {
 
 void Vector::add_value_at(int col, int to_add) {
 	if (col > this->size) {
-		throw std::out_of_range("Error ! Cannot add at : " + std::to_string(col));
-	}
-
+		throw new std::exception();
+	} 
 	this->values[col] = to_add;
 }
 
 void Vector::add_vector(const Vector& to_add) {
-	for (int i = 0; i < this->values.size(); i++) {
+	for (unsigned int i = 0; i < this->values.size(); i++) {
 		this->values[i] += to_add.values[i];
 	}
 }
 
 void Vector::multiply_vector(const int multiple) {
-	for (int i = 0; i < this->values.size(); i++) {
+	for (unsigned int i = 0; i < this->values.size(); i++) {
 		this->values[i] *= multiple;
 	}
 }

@@ -1,4 +1,4 @@
-#include "Matrix.hpp"
+#include "../headers/Matrix.hpp"
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -25,14 +25,9 @@ const Vector& Matrix::get_vect_at(const int row) const {
 }
 
 void Matrix::add_value_at(const int row, const int col, const int to_add) {
-
-	if (row > this->row || col > this->col) {
-		throw std::out_of_range("Error ! Cannot add value at row : " 
-			+ std::to_string(row) 
-			+ " col : " 
-			+ std::to_string(col));
+	if (row > this->row && col > this->col) {
+		throw new std::exception();
 	}
-
 	this->vectors[row].add_value_at(col, to_add);
 }
 
@@ -40,21 +35,31 @@ bool Matrix::is_same_size(const Matrix& to_check) {
 	return this->get_row() == this->get_col() && to_check.get_row() == to_check.get_row();
 }
 
-Matrix& Matrix::add_matrix(const Matrix& to_add) {
+Matrix& Matrix::add_matrix_on_this(const Matrix& to_add) {
 
 	if (!this->is_same_size(to_add)) {
-		throw std::exception("Error ! Cannot add 2 matrix with differents sizes");
+		throw new std::exception();
 	}
-
-	for (int i = 0; i < this->vectors.size(); i++) {
+	
+	for (unsigned int i = 0; i < this->vectors.size(); i++) {
 		this->vectors[i].add_vector(to_add.get_vect_at(i));
 	}
 
 	return *this;
 }
 
+Matrix Matrix::add_matrix(const Matrix& to_add) {
+
+	if (!this->is_same_size(to_add)) {
+		throw new std::exception();
+	}
+
+	Matrix result = Matrix(to_add.get_row(), to_add.get_col());
+	
+}
+
 Matrix& Matrix::multiply_matrix(const int multiple) {
-	for (int i = 0; i < this->vectors.size(); i++) {
+	for (unsigned int i = 0; i < this->vectors.size(); i++) {
 		this->vectors[i].multiply_vector(multiple);
 	}
 	return *this;
@@ -100,7 +105,7 @@ Matrix& Matrix::operator*=(const int multiple) {
 
 int& Matrix::operator()(const int row, const int col) {
 	if (row > this->get_row() || col > this->get_row()) {
-		throw std::out_of_range("Error ! Cannot access to row : " + std::to_string(row) + " col : " + std::to_string(row));
+		throw new std::exception();
 	}
 	return this->vectors[row].get_at(col);
 }
