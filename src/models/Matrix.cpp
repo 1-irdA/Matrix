@@ -40,7 +40,7 @@ Matrix& Matrix::add_matrix_on_this(const Matrix& to_add) {
 	if (!this->is_same_size(to_add)) {
 		throw new std::exception();
 	}
-	
+
 	for (unsigned int i = 0; i < this->vectors.size(); i++) {
 		this->vectors[i].add_vector(to_add.get_vect_at(i));
 	}
@@ -48,14 +48,20 @@ Matrix& Matrix::add_matrix_on_this(const Matrix& to_add) {
 	return *this;
 }
 
-Matrix Matrix::add_matrix(const Matrix& to_add) {
+Matrix Matrix::add_matrix(Matrix& to_add) {
 
 	if (!this->is_same_size(to_add)) {
 		throw new std::exception();
 	}
 
 	Matrix result = Matrix(to_add.get_row(), to_add.get_col());
+	result = copy(to_add);
 	
+	for (unsigned int i = 0; i < to_add.vectors.size(); i++) {
+		result.vectors[i].add_vector(this->get_vect_at(i));
+	}
+
+	return result;
 }
 
 Matrix& Matrix::multiply_matrix(const int multiple) {
@@ -87,8 +93,8 @@ std::string Matrix::to_string() const {
 	return str;
 }
 
-Matrix operator+(Matrix& left, const Matrix& right) {
-	return left += right;
+Matrix operator+(Matrix& left, Matrix& right) {
+	return left.add_matrix(right);
 }
 
 Matrix operator*(Matrix& to_multiply, const int multiple) {
@@ -112,4 +118,8 @@ int& Matrix::operator()(const int row, const int col) {
 
 std::ostream& operator<<(std::ostream& stream, const Matrix& matrix) {
 	return stream << matrix.to_string();
+}
+
+Matrix& copy(Matrix& to_copy) {
+	return to_copy;
 }

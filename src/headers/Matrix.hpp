@@ -26,7 +26,7 @@ public:
 
 	Matrix& add_matrix_on_this(const Matrix& to_add);
 
-	Matrix add_matrix(const Matrix& to_add);
+	Matrix add_matrix(Matrix& to_add);
 
 	Matrix& multiply_matrix(const int multiple);
 
@@ -36,15 +36,17 @@ public:
 
 	std::string to_string() const;
 
-	friend Matrix operator+(Matrix& left, const Matrix& right);
-
-	friend Matrix operator*(Matrix& to_multiply, const int multiple);
-
-	friend std::ostream& operator<<(std::ostream& stream, const Matrix& matrix);
+	friend Matrix operator+(Matrix& left, Matrix& right);
 
 	Matrix& operator+=(const Matrix& to_add);
+
+	friend Matrix operator*(Matrix& to_multiply, const int multiple);
 	
 	Matrix& operator*=(const int multiple);
 
 	int& operator()(const int row, const int col);
+
+	friend std::ostream& operator<<(std::ostream& stream, const Matrix& matrix);
 };
+
+Matrix& copy(Matrix& to_copy);
